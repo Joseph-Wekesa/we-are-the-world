@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid mt-5">
+    <div class="appointment-form card shadow-lg p-4">
+        <h2 class="text-center mb-4">Book an Appointment</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Book Appointment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .appointment-form {
+        width: 100%;
+        max-width: 100%;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+    }
+    h2 {
+        font-weight: bold;
+    }
+    input, select, textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+    button.btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: all 0.3s ease-in-out;
+    }
+    button.btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004494;
+    }
+</style>
+
+{% endblock %}

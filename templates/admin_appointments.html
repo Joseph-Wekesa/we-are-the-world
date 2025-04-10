@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Appointments{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="appointments card shadow-lg p-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="text-theme fw-bold">Appointments</h2>
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-theme">← Back to Dashboard</a>
+        </div>
+
+        <div class="table-responsive mt-3">
+            <table class="table table-striped table-hover">
+                <thead class="table-theme">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Property</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.name }}</td>
+                        <td>{{ appointment.email }}</td>
+                        <td>{{ appointment.property.title }}</td>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.time }}</td>
+                        <td>{{ appointment.message }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">No appointments available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --theme-color: #007bff;
+        --theme-hover: #0056b3;
+        --theme-light: #f8f9fa;
+    }
+
+    .appointments {
+        max-width: 900px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .text-theme {
+        color: var(--theme-color);
+    }
+
+    .btn-theme {
+        background-color: var(--theme-color);
+        border-color: var(--theme-color);
+        color: white;
+        transition: transform 0.2s ease-in-out, background 0.3s;
+    }
+
+    .btn-theme:hover {
+        background-color: var(--theme-hover);
+        border-color: var(--theme-hover);
+        transform: scale(1.05);
+    }
+
+    .table-theme {
+        background-color: var(--theme-color);
+        color: white;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: var(--theme-light);
+    }
+</style>
+
+{% endblock %}

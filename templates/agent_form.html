@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if form.instance.pk %}Edit Agent{% else %}Add Agent{% endif %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2>{% if form.instance.pk %}Edit Agent{% else %}Add New Agent{% endif %}</h2>
+        <div class="card p-4 shadow-sm">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Phone</label>
+                    {{ form.phone }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Profile Picture</label>
+                    {{ form.profile_picture }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Bio</label>
+                    {{ form.bio }}
+                </div>
+                <button type="submit" class="btn btn-success">Save Agent</button>
+                <a href="{% url 'agent_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

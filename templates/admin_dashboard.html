@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand text-white" href="{% url 'admin_dashboard' %}">
+            Admin Panel | <span class="fw-normal"> Welcome, <span style="color: dodgerblue">{{ user.username }}</span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item mx-2">
+                    <a class="btn btn-sm btn-light" href="{% url 'add_property' %}">Add Property</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="btn btn-sm btn-light" href="{% url 'admin_appointments' %}">View Appointments</a>
+                </li>
+                <li>
+                    <a href="{% url 'admin_manage_agents' %}" class="btn btn-sm btn-light">Manage Agents</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="btn btn-sm btn-danger" href="{% url 'admin_logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="dashboard card shadow-lg p-4">
+        <h2 class="text-center text-dark fw-bold">Admin Dashboard</h2>
+
+        <div class="section mt-5">
+            <h3 class="text-dark">Manage Properties</h3>
+
+            <div class="row">
+                {% for property in properties %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm property-card">
+                        {% if property.image %}
+                        <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ property.title }}</h5>
+                            <p class="card-text">{{ property.description|truncatewords:15 }}</p>
+                            <p><strong>Price:</strong> Ksh{{ property.price }}</p>
+                            <p><strong>Location:</strong> {{ property.location }}</p>
+                            <a href="{% url 'edit_property' property.id %}" class="btn btn-outline-dark btn-sm">Edit</a>
+                            <a href="{% url 'delete_property' property.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-muted">No properties available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .dashboard {
+        max-width: 900px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-light {
+        background-color: #f8f9fa;
+        border: 1px solid #ccc;
+        color: #333;
+    }
+
+    .btn-light:hover {
+        background-color: #e2e6ea;
+    }
+
+    .btn-danger {
+        font-weight: bold;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .property-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card img {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .btn-outline-danger {
+        border-color: red;
+        color: red;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: red;
+        color: white;
+    }
+</style>
+
+{% endblock %}
