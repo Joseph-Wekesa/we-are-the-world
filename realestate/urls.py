@@ -19,5 +19,5 @@ urlpatterns = [
     path('agents/add/', add_agent, name='add_agent'),
     path('agents/update/<int:agent_id>/', update_agent, name='update_agent'),
     path('agents/delete/<int:agent_id>/', delete_agent, name='delete_agent'),
-    path('admin/agents/', admin_manage_agents, name='admin_manage_agents'),
+    path('manage-agents/', admin_manage_agents, name='admin_manage_agents'),
 ]
