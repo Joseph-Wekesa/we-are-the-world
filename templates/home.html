@@ -20,8 +20,8 @@
         <div class="col-md-4">
             <div class="card mb-4">
                 {% if property.image %}
-                <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}">
-                {% endif %}
+<img src="{% static property.image.name %}" class="card-img-top" alt="{{ property.title }}">
+{% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ property.title }}</h5>
                     <p class="card-text">{{ property.description|truncatewords:20 }}</p>
